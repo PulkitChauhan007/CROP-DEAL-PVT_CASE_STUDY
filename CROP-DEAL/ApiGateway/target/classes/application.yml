@@ -1,0 +1,37 @@
+server:
+  port: 8888
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+  
+  
+spring:
+  application:
+    name: Api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: cropservice
+        uri: http://localhost:8081/
+        predicates:
+        - Path=/crop/**
+      - id: AdminMicroservice
+        uri: http://localhost:8094/
+        predicates:
+        - Path=/Admin/**
+      
+      - id: DealerMicroervice
+        uri: http://localhost:8083/
+        predicates:
+        - Path=/dealer/**
+      
+      - id: farmerservice
+        uri: http://localhost:8084/
+        predicates:
+        - Path=//farmer/**
+     
